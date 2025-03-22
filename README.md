@@ -1,5 +1,4 @@
 # Chat_Application using Java
-# Chat Application
 
 ## Overview
 This Java-based chat application allows multiple users to communicate in a shared chat room. It features a simple graphical user interface (GUI) using Swing and manages messages through a shared text file.
