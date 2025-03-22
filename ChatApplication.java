@@ -14,11 +14,12 @@ public class ChatApplication {
     private File chatFile;
     private String userName;
 
+    // Constructor to initialize chat application
     public ChatApplication(String userName, String filePath) {
         this.userName = userName;
         this.chatFile = new File(filePath);
 
-        initializeGUI(); // Initialize GUI components first
+        initializeGUI(); 
         userAction("joined"); // Log the user's join action once
         startMessageMonitor(); // Start monitoring messages
     }
@@ -58,23 +59,23 @@ public class ChatApplication {
 
         frame.add(bottomPanel, BorderLayout.SOUTH);
 
-        // Send button action
+        // Send button action listener to send messages
         sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String message = messageField.getText().trim();
                 if (!message.isEmpty()) {
                     writeMessage(message);
-                    messageField.setText("");
+                    messageField.setText(""); //Clear input field
                 }
             }
         });
 
-        // Exit button action
+        // Exit button action listener to handle user exit
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 userAction("exited");
                 clearChatArea(); // Clear the chat area on exit
-                chatFile.delete(); // Delete the chat file on exit
+                chatFile.delete(); 
                 System.exit(0);
             }
         });
@@ -86,8 +87,8 @@ public class ChatApplication {
     private void userAction(String action) {
         String logMessage = userName + " " + action;
         try (BufferedWriter br = new BufferedWriter(new FileWriter(chatFile, true))) {
-            br.write(logMessage + '\n');
-            appendToChatArea(logMessage);
+            br.write(logMessage + '\n');  // Write action to file
+            appendToChatArea(logMessage); // Display action in chat area
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -138,7 +139,8 @@ public class ChatApplication {
         monitorThread.setDaemon(true);
         monitorThread.start();
     }
-
+    
+    // Main method to launch chat application
     public static void main(String[] args) {
         String userName = JOptionPane.showInputDialog("Enter your username:");
         if (userName != null && !userName.trim().isEmpty()) {
